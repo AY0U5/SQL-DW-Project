@@ -1,3 +1,6 @@
+USE datawarehouse;
+GO
+
 IF OBJECT_ID('bronze.crm_cust_info', 'U') IS NOT NULL
     DROP TABLE bronze.crm_cust_info;
 create table bronze.crm_cust_info (
@@ -30,7 +33,7 @@ create table bronze.crm_sales_details (
     sls_cust_id INT,
     sls_order_dt INT,
     sls_ship_dt INT,
-    sls_due_dt Date,
+    sls_due_dt INT,
     sls_sales INT,
     sls_quantity INT,
     sls_price INT
@@ -41,7 +44,7 @@ IF OBJECT_ID('bronze.erp_cust_az12', 'U') IS NOT NULL
 create table bronze.erp_cust_az12 (
     CID NVARCHAR(50),
     BDATE DATE,
-    GEN NVARCHAR(50)
+    GEN NVARCHAR(7)
 );
 
 

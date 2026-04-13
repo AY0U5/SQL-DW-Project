@@ -17,6 +17,9 @@ Usage Example:
 ===============================================================================
 */
 
+
+--EXEC bronze.load_bronze
+
 use datawarehouse;
 GO
 
@@ -41,7 +44,7 @@ BEGIN
 
         PRINT '>> Loading crm_cust_info...';
         BULK INSERT bronze.crm_cust_info
-        FROM '/tmp/crm/cust_info.csv' -- the file inside docker container
+        FROM '/var/opt/mssql/datasets/source_crm/cust_info.csv' -- the file inside docker container
         WITH (
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
@@ -58,7 +61,7 @@ BEGIN
 
         PRINT '>> Loading crm_prd_info...';
         BULK INSERT bronze.crm_prd_info
-        FROM '/tmp/crm/prd_info.csv' -- the file inside docker container
+        FROM '/var/opt/mssql/datasets/source_crm/prd_info.csv' -- the file inside docker container
         WITH (
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
@@ -76,7 +79,7 @@ BEGIN
 
         PRINT '>> Loading crm_sales_details...';
         BULK INSERT bronze.crm_sales_details
-        FROM '/tmp/crm/sales_details.csv' -- the file inside docker container
+        FROM '/var/opt/mssql/datasets/source_crm/sales_details.csv' -- the file inside docker container
         WITH (
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
@@ -97,7 +100,7 @@ BEGIN
 
         PRINT '>> Loading erp_cust_az12...';
         BULK INSERT bronze.erp_cust_az12
-        FROM '/tmp/erp/cust_az12.csv' -- the file inside docker container
+        FROM '/var/opt/mssql/datasets/source_erp/cust_az12.csv' -- the file inside docker container
         WITH (
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
@@ -114,7 +117,7 @@ BEGIN
 
         PRINT '>> Loading erp_loc_a101...';
         BULK INSERT bronze.erp_loc_a101
-        FROM '/tmp/erp/loc_a101.csv' -- the file inside docker container
+        FROM '/var/opt/mssql/datasets/source_erp/loc_a101.csv' -- the file inside docker container
         WITH (
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
@@ -131,7 +134,7 @@ BEGIN
 
         PRINT '>> Loading erp_px_cat_g1v2...';
         BULK INSERT bronze.erp_px_cat_g1v2
-        FROM '/tmp/erp/px_cat_g1v2.csv' -- the file inside docker container
+        FROM '/var/opt/mssql/datasets/source_erp/px_cat_g1v2.csv' -- the file inside docker container
         WITH (
             FIRSTROW = 2,
             FIELDTERMINATOR = ',',
@@ -145,8 +148,8 @@ BEGIN
         PRINT '===============================';
         PRINT 'Error occurred while loading data into bronze layer: ';
         PRINT 'Error Message: ' + ERROR_MESSAGE();
-        PRINT 'Error Number: ' + CAST(ERROR_NUMBER() AS NVARCHAR(50));
-        PRINT 'Error Status: ' + CAST(ERROR_STATE() AS NVARCHAR(50));
+        PRINT 'Error Number: ' + CAST(ERROR_NUMBER() AS NVARCHAR);
+        PRINT 'Error Status: ' + CAST(ERROR_STATE() AS NVARCHAR);
         PRINT '===============================';
     END CATCH
     SET @batch_end_time = GETDATE();
